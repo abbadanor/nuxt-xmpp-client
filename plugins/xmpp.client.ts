@@ -61,6 +61,9 @@ export default defineNuxtPlugin(() => {
     client.connect()
   }
 
+  /*  TODO: den hämtar en massa error. Om man sätter max till 100 får man 90 errors och
+      10 chattar. Måste fixa så den bara hämtar chatter.
+  */
   async function fetchArchive(jid: string, max = 500) {
     const opts: XMPP.MAMQueryOptions = {
       with: jid,
