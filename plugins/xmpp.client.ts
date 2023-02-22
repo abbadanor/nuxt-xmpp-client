@@ -9,6 +9,7 @@ export default defineNuxtPlugin(() => {
     client = XMPP.createClient({
       jid: 'adam@chat.a-nord.se',
       password: 'password',
+      allowResumption: false,
       resource: 'nuxtclient',
       transports: {
         bosh: false,
@@ -54,12 +55,13 @@ export default defineNuxtPlugin(() => {
       client.sendPresence({
         legacyCapabilities: client.disco.getCaps(),
       })
+      await client.discoverICEServers()
     })
 
     client.connect()
   }
 
-  async function fetchArchive(jid: string, max?: number) {
+  async function fetchArchive(jid: string, max = 500) {
     const opts: XMPP.MAMQueryOptions = {
       with: jid,
     }

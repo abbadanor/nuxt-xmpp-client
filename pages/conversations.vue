@@ -2,7 +2,6 @@
 import { useXmppStore } from '~~/stores/xmpp'
 const { $xmpp } = useNuxtApp()
 const xmppStore = useXmppStore()
-const loading = ref(false)
 
 function getLastMessageWithJid(jid: string) {
   return xmppStore.sortedMessages.find((msg) => {
@@ -19,7 +18,7 @@ function getLastMessageWithJid(jid: string) {
         <NuxtLink to="/" class="mb-2 text-xs text-gray-500">
           Dina chatter
         </NuxtLink>
-        <div v-if="xmppStore.roster.length > 0 && !loading">
+        <div v-if="xmppStore.roster.length > 0">
           <div
             v-for="user in xmppStore.roster"
             :key="user.jid"
@@ -52,7 +51,6 @@ function getLastMessageWithJid(jid: string) {
           </div>
         </div>
       </div>
-      <Icon class="w-6 h-6 mt-2 text-gray-500 cursor-pointer" name="ph:arrow-clockwise-bold" @click="loading = !loading" />
     </div>
     <!-- Page content -->
     <main class="flex flex-col w-full">

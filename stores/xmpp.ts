@@ -1,17 +1,19 @@
 import { defineStore } from 'pinia'
 
+export interface Message {
+  id: string
+  body: string
+  time: Date
+  from?: string
+  to: string
+}
+
 interface XmppState {
   roster: {
     jid: string
     archiveFetched: boolean
   }[]
-  messages: {
-    id: string
-    body: string
-    time: Date
-    from?: string
-    to: string
-  }[]
+  messages: Message[]
 }
 
 export const useXmppStore = defineStore('xmpp', {
@@ -22,6 +24,6 @@ export const useXmppStore = defineStore('xmpp', {
     }
   },
   getters: {
-    sortedMessages: state => state.messages.sort((x, y) => x.time.getTime() - y.time.getTime()),
+    sortedMessages: state => state.messages.sort((x, y) => y.time.getTime() - x.time.getTime()),
   },
 })
